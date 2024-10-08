@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Personal Website</title>
+    <!-- link css -->
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="" class="logo">sohel</a>
+
+        <div class="menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <ul class="navbar">
+            <li><a href="#Home">Home</a></li>
+            <li><a href="#About">About</a></li>
+            <li><a href="#Skill">Skill</a></li>
+            <li><a href="#Service">Service</a></li>
+            <li><a href="#Portfolio">Portfolio</a></li>
+            <li><a href="#Contact">Contact</a></li>
+            <li><a class="moon"><i class="fa-regular fa-moon"></i></a></li>
+        </ul>
+    </header>
+    <section id="Home" class="home">
+        <div class="social">
+            <a href="#"><i class="fa-brands fa-square-github"></i></a>
+            <a href="#"><i class="fa-brands fa-dribbble"></i></a>
+            <a href="#"><i class="fa-brands fa-square-behance"></i></a>
+        </div>
+        <div class="homeImg">
+            <img src="Screenshot_6-removebg-preview.png" alt="">
+        </div>
+        <div class="homeText">
+            <span>Hi. I'm</span>
+            <h1>Muhammad SOHEL Rana</h1>
+            <h2>Front-end Developer</h2>
+            <p>I am an experienced freelance web developer specializing in <br> HTML, CSS, JavaScript, Bootstrap, and
+                jQuery. <br> <br>
+                <a href="#contact" class="btn">Contact Me</a>
+        </div>
+        <div class="scrollDown">
+            <a href="#About">
+                <i class="fa-solid fa-computer-mouse"></i>
+                <span>Scroll Down</span>
+                <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- section about -->
+    <section id="About" class="about">
+        <div class="heading">
+            <h2>About</h2>
+            <span>Introduction</span>
+        </div>
+        <div class="about_container">
+            <div class="about_img">
+                <img src="./Screenshot_6.png" alt="">
+            </div>
+            <div class="about_text">
+                <h1>Muhammad SOHEL</h1>
+                <p>I am an experienced freelance web developer specializing in HTML, CSS, JavaScript, Bootstrap, and
+                    jQuery. Over the past year, I have successfully completed a wide range of projects, where I applied
+                    my deep expertise in modern web design and development.</p>
+                <div class="information">
+                    <!-- info box 1 -->
+                    <div class="info_box">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Muhammad SOHEL</span>
+                    </div> <!-- info box 2 -->
+                    <div class="info_box">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+8801308446369</span>
+                    </div> <!-- info box 3 -->
+                    <div class="info_box">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>ProjectSOHEL@.com</span>
+                    </div>
+                </div>
+                <a href="#" class="btn">Download</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- skills -->
+    <section class="skill" id="Skill">
+        <div class="heading">
+            <h2>Skill</h2>
+            <span>My Skills</span>
+        </div>
+        <div class="skill_container">
+            <div class="bars">
+                <!-- box 1 -->
+                <div class="bars_box">
+                    <h3>HTML</h3>
+                    <span>94%</span>
+                    <div class="light-bar"></div>
+                    <div class="percent-bar html-bar"></div>
+                </div>
+                <!-- box 2 -->
+                <div class="bars_box">
+                    <h3>CSS</h3>
+                    <span>86%</span>
+                    <div class="light-bar"></div>
+                    <div class="percent-bar css-bar"></div>
+                </div>
+                <!-- box 3 -->
+                <div class="bars_box">
+                    <h3>JavaScript</h3>
+                    <span>54%</span>
+                    <div class="light-bar"></div>
+                    <div class="percent-bar js-bar"></div>
+                </div>
+                <!-- box 4 -->
+                <div class="bars_box">
+                    <h3>Php</h3>
+                    <span>24%</span>
+                    <div class="light-bar"></div>
+                    <div class="percent-bar php-bar"></div>
+                </div>
+            </div>
+            <div class="skill_img">
+              <img src="./Screenshot_1.png" alt="">
+            </div>
+        </div>
+    </section>
+
+    <!-- service -->
+    <section class="service" id="Service">
+        <div class="heading">
+            <h2>Service</h2>
+            <span>My work</span>
+        </div>
+        <div class="service_content">
+            <!-- box 1 -->
+            <div class="service_box">
+                <i class="fa-solid fa-code"></i>
+                <h2>Web <br>Development</h2>
+                <a href="">Learn More</a>
+            </div>
+            <!-- box 2 -->
+            <div class="service_box">
+                <i class="fa-solid fa-server"></i>
+                <h2>Front-end <br>Development</h2>
+                <a href="#">Learn More</a>
+            </div>
+            <!-- box 3 -->
+            <div class="service_box">
+                <i class="fa-solid fa-brush"></i>
+                <h2>UI/UX <br>Design</h2>
+                <a href="#">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio section -->
+    <section id="Portfolio" class="portfolio">
+        <div class="heading">
+            <h2>Portfolio</h2>
+            <span>My Recent Work</span>
+        </div>
+        <div class="portfolio_content">
+            <div class="portfolio_img">
+                <img src="./Screenshot_1.png" alt="" id="imgClick">
+            </div>
+
+            <div class="portfolio_img">
+                <img src="./Screenshot_9.png" alt="" id="imgClick">
+            </div>
+            <div class="portfolio_img">
+                <img src="./Screenshot_17.png" alt="" id="imgClick">
+            </div>
+            <div class="portfolio_img">
+                <img src="./Screenshot_13.png" alt="" id="imgClick">
+            </div>
+            <div class="portfolio_img">
+                <img src="./Screenshot_23.png" alt="" id="imgClick">
+            </div>
+            <div class="portfolio_img">
+                <img src="./Screenshot_5.png" alt="" id="imgClick">
+            </div>
+        </div>
+    </section>
+
+    <!-- contact -->
+    <section id="Contact" class="contact">
+        <div class="heading">
+            <h2>Contact</h2>
+            <span>Connect with Us</span>
+        </div>
+        <div class="contact_form">
+            <form action="#" autocomplete="on">
+                <input type="text" placeholder="Your name">
+                <input type="email" placeholder="Your email">
+                <textarea name="textarea" cols="30" role="10" id="" placeholder="Write Message Here"></textarea>
+                <input type="submit" value="Submit" class="contact_btn">
+            </form>
+        </div>
+    </section>
+<!-- footer -->
+    <section class="footer">
+        <h2>sohel</h2>
+        <div class="social_link">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </section>
+    <!-- copyright -->
+    <section class="copyright">
+        <p>@sohel rana All right Reserved!</p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
