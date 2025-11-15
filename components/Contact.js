@@ -96,7 +96,7 @@ export default function Contact() {
   }
 
   return (
-    <section className="contact" id="contact" data-title="Contact - SOHEL Developer">
+    <section className="contact" id="contact" data-title="Contact - Muhammad Sohel">
       <div className="contact-wrapper">
         <div className="contact-header">
           <h2 className="heading">Contact <span>Me</span></h2>

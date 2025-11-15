@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     const messages = [
       {
         role: 'system',
-        content: `You are a helpful AI assistant for SOHEL Developer's portfolio website. 
+        content: `You are a helpful AI assistant for Muhammad Sohel's portfolio website. 
 
 IMPORTANT: Always reply in 1-2 short sentences maximum. Use simple words. Be direct and concise. No long explanations.
 
@@ -35,7 +35,7 @@ You help visitors learn about:
 - Web development services (Web Design, Web Development, Backend Development, UI/UX Design)
 - Portfolio projects and technologies
 - Skills and expertise
-- How to contact SOHEL Developer
+- How to contact Muhammad Sohel
 
 Keep every response brief and easy to understand.`
       },
@@ -90,7 +90,7 @@ Keep every response brief and easy to understand.`
         } catch (fallbackError) {
           console.error('Fallback chatbot error:', fallbackError)
           return res.status(200).json({ 
-            message: "I can help you with information about services, portfolio projects, skills, and how to contact SOHEL Developer. Please use the Contact form below to get in touch directly!",
+            message: "I can help you with information about services, portfolio projects, skills, and how to contact Muhammad Sohel. Please use the Contact form below to get in touch directly!",
             source: 'fallback'
           })
         }

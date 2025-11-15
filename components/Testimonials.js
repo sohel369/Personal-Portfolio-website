@@ -21,7 +21,7 @@ export default function Testimonials() {
   ]
 
   return (
-    <section className="testimonials" id="testimonials" data-title="Testimonials - SOHEL Developer">
+    <section className="testimonials" id="testimonials" data-title="Testimonials - Muhammad Sohel">
       <div className="testimonials-wrapper">
         <div className="testimonials-header">
           <span className="section-tag">Client Reviews</span>

@@ -56,7 +56,7 @@ export default function Services() {
   ]
 
   return (
-    <section className="service" id="service" data-title="Services - SOHEL Developer">
+    <section className="service" id="service" data-title="Services - Muhammad Sohel">
       <div className="service-wrapper">
         <div className="service-header">
           <span className="section-tag">What I Offer</span>

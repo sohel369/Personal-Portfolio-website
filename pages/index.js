@@ -16,13 +16,13 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>SOHEL Developer - Portfolio</title>
-        <meta name="description" content="Portfolio website of SOHEL Developer - Frontend Designer, Web Developer" />
+        <title>Muhammad Sohel - Portfolio</title>
+        <meta name="description" content="Portfolio website of Muhammad Sohel - Frontend Designer, Web Developer" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logoShortcutIcon.png" />
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />
       </Head>
-      <DynamicTitle defaultTitle="SOHEL Developer - Portfolio" />
+      <DynamicTitle defaultTitle="Muhammad Sohel - Portfolio" />
       <Header />
       <main>
         <Hero />

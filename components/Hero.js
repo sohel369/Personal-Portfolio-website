@@ -77,7 +77,7 @@ export default function Hero() {
   }, [charIndex, currentIndex, isDeleting, words])
 
   return (
-    <section className="home" id="home" data-title="Home - SOHEL Developer">
+    <section className="home" id="home" data-title="Home - Muhammad Sohel">
       {/* Animated Background Elements */}
       <div className="bg-animation">
         <div className="floating-shapes">

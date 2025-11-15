@@ -9,7 +9,7 @@ import { useEffect, useRef } from 'react'
  * 2. Import and add <DynamicTitle defaultTitle="SOHEL Developer" /> to your page
  */
 export default function DynamicTitle({ 
-  defaultTitle = 'SOHEL Developer',
+  defaultTitle = 'Muhammad Sohel',
   rootMargin = '-20% 0px -60% 0px', // Section is considered "in view" when 20% from top
   threshold = 0.1
 }) {

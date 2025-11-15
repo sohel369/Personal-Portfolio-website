@@ -39,7 +39,7 @@ export default function Portfolio() {
   ]
 
   return (
-    <section className="portfolio" id="portfolio" data-title="Portfolio - SOHEL Developer">
+    <section className="portfolio" id="portfolio" data-title="Portfolio - Muhammad Sohel">
       <div className="portfolio-wrapper">
         <div className="portfolio-header">
           <span className="section-tag">My Work</span>

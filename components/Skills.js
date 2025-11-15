@@ -1,6 +1,6 @@
 export default function Skills() {
   return (
-    <section className="skills" id="skills" data-title="Skills - SOHEL Developer">
+    <section className="skills" id="skills" data-title="Skills - Muhammad Sohel">
       <div className="skills-wrapper">
         <div className="skills-header">
           <span className="section-tag">My Expertise</span>

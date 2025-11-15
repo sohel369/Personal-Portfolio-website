@@ -21,7 +21,7 @@ export default function Process() {
   ]
 
   return (
-    <section className="process" id="process" data-title="Process - SOHEL Developer">
+    <section className="process" id="process" data-title="Process - Muhammad Sohel">
       <div className="process-wrapper">
         <div className="process-header">
           <span className="section-tag">My Approach</span>
