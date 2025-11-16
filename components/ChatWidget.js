@@ -61,6 +61,27 @@ export default function ChatWidget() {
           return
         }
         
+        // Try to use fallback API if main API fails
+        if (response.status === 500 && data.error) {
+          console.warn('Main chat API failed, trying fallback:', data.error)
+          try {
+            const fallbackResponse = await fetch('/api/chat-fallback', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ message: message })
+            })
+            const fallbackData = await fallbackResponse.json()
+            if (fallbackResponse.ok && fallbackData.message) {
+              addMessage(fallbackData.message, false)
+              return
+            }
+          } catch (fallbackErr) {
+            console.error('Fallback API also failed:', fallbackErr)
+          }
+        }
+        
         const errorMsg = data.details || data.error || 'Failed to get response'
         console.error('API Error:', { status: response.status, data })
         throw new Error(errorMsg)
@@ -70,9 +91,29 @@ export default function ChatWidget() {
       addMessage(data.message, false)
     } catch (error) {
       console.error('Error sending message:', error)
+      
+      // Try fallback API as last resort
+      try {
+        const fallbackResponse = await fetch('/api/chat-fallback', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: message })
+        })
+        const fallbackData = await fallbackResponse.json()
+        if (fallbackResponse.ok && fallbackData.message) {
+          addMessage(fallbackData.message, false)
+          return
+        }
+      } catch (fallbackErr) {
+        console.error('Fallback API also failed:', fallbackErr)
+      }
+      
+      // If all else fails, show helpful error message
       const errorMessage = error.message || "Sorry, I'm having trouble connecting right now. Please try again later or check the Contact section for other ways to reach out."
       addMessage(
-        `Error: ${errorMessage}`,
+        `I'm having trouble connecting. ${errorMessage.includes('check your .env.local') ? 'The chat service is being configured. ' : ''}Please use the Contact form below to get in touch!`,
         false
       )
     } finally {

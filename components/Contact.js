@@ -59,18 +59,22 @@ export default function Contact() {
       const data = await response.json()
 
       if (response.ok && data.success) {
+        let successMessage = data.message || "Message sent successfully! I'll get back to you soon."
+        if (data.note) {
+          successMessage += ` ${data.note}`
+        }
         setFormStatus({ 
-          message: data.message || "Message sent successfully! I'll get back to you soon.", 
+          message: successMessage, 
           type: 'success' 
         })
         // Reset form
         if (formRef.current) {
           formRef.current.reset()
         }
-        // Clear success message after 5 seconds
+        // Clear success message after 8 seconds (longer if there's a note)
         setTimeout(() => {
           setFormStatus({ message: '', type: '' })
-        }, 5000)
+        }, data.note ? 8000 : 5000)
       } else {
         setFormStatus({ 
           message: data.details || data.error || "Something went wrong! Please try again.", 
@@ -83,13 +87,27 @@ export default function Contact() {
       }
     } catch (error) {
       console.error('Form submission error:', error)
+      
+      // Check if it's a network error
+      const isNetworkError = error.message?.includes('fetch') || 
+                            error.message?.includes('network') ||
+                            error.message?.includes('Failed to fetch')
+      
+      let errorMessage = "Network error! Please check your connection and try again."
+      
+      if (isNetworkError) {
+        errorMessage = "Unable to connect to the server. Please check your internet connection and try again. If the problem persists, you can contact directly via email."
+      } else {
+        errorMessage = error.message || "Something went wrong! Please try again or contact directly via email."
+      }
+      
       setFormStatus({ 
-        message: "Network error! Please check your connection and try again.", 
+        message: errorMessage, 
         type: 'error' 
       })
       setTimeout(() => {
         setFormStatus({ message: '', type: '' })
-      }, 5000)
+      }, 8000)
     } finally {
       setIsSubmitting(false)
     }

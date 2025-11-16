@@ -13,12 +13,23 @@ export default async function handler(req, res) {
 
     const apiKey = process.env.OPENAI_API_KEY
 
+    // If API key is missing, automatically use fallback chatbot
     if (!apiKey) {
-      console.error('OPENAI_API_KEY is missing from environment variables')
-      return res.status(500).json({ 
-        error: 'OpenAI API key is not configured',
-        details: 'Please check your .env.local file'
-      })
+      console.log('OPENAI_API_KEY is missing, using fallback chatbot')
+      try {
+        const { getResponse } = await import('../../lib/chatbot-fallback.js')
+        const fallbackResponse = getResponse(message)
+        return res.status(200).json({ 
+          message: fallbackResponse,
+          source: 'fallback'
+        })
+      } catch (fallbackError) {
+        console.error('Fallback chatbot error:', fallbackError)
+        return res.status(200).json({ 
+          message: "I can help you with information about services, portfolio projects, skills, and how to contact Muhammad Sohel. Please use the Contact form below to get in touch directly!",
+          source: 'fallback'
+        })
+      }
     }
 
     console.log('API Key found:', apiKey.substring(0, 10) + '...')

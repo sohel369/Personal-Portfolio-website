@@ -38,14 +38,59 @@ export default async function handler(req, res) {
     }
 
     // Check if SMTP is configured
-    if (!smtpConfig.auth.user || !smtpConfig.auth.pass) {
-      console.error('SMTP credentials not configured', {
+    const isSmtpConfigured = smtpConfig.auth.user && smtpConfig.auth.pass && 
+                             smtpConfig.auth.user !== 'your-email@gmail.com' && 
+                             smtpConfig.auth.pass !== 'your-app-password-here'
+    
+    if (!isSmtpConfigured) {
+      console.warn('SMTP credentials not configured, will only save to database', {
         hasUser: !!smtpConfig.auth.user,
         hasPass: !!smtpConfig.auth.pass
       })
-      return res.status(500).json({ 
-        error: 'Email service not configured',
-        details: 'Please configure SMTP_USER and SMTP_PASS in your .env.local file. For Gmail, you need to create an App Password (not your regular password).'
+      
+      // Try to save to database even if SMTP is not configured
+      let dbResult = null
+      try {
+        const { data, error } = await supabaseAdmin
+          .from('contact_messages')
+          .insert([
+            {
+              name,
+              email,
+              phone: phone || null,
+              subject: subject || 'No subject',
+              message,
+              created_at: new Date().toISOString()
+            }
+          ])
+          .select()
+
+        if (error) {
+          console.error('Supabase error:', error)
+          return res.status(500).json({ 
+            error: 'Contact form is not fully configured',
+            details: 'Please configure SMTP_USER and SMTP_PASS in Vercel environment variables. For Gmail, you need to create an App Password (not your regular password).',
+            note: 'Your message could not be saved. Please try contacting directly via email.'
+          })
+        } else {
+          dbResult = data[0]
+          console.log('Message saved to database:', dbResult.id)
+        }
+      } catch (dbError) {
+        console.error('Database save error:', dbError)
+        return res.status(500).json({ 
+          error: 'Contact form is not fully configured',
+          details: 'Please configure SMTP_USER and SMTP_PASS in Vercel environment variables. For Gmail, you need to create an App Password (not your regular password).',
+          note: 'Your message could not be saved. Please try contacting directly via email.'
+        })
+      }
+      
+      // Return success even without email (message saved to DB)
+      return res.status(200).json({ 
+        success: true,
+        message: 'Message received! We\'ll get back to you soon.',
+        dbId: dbResult?.id,
+        note: 'Note: Email notifications are not configured. Your message has been saved to our database.'
       })
     }
     
@@ -55,7 +100,44 @@ export default async function handler(req, res) {
     }
 
     // Create transporter
-    const transporter = nodemailer.createTransport(smtpConfig)
+    let transporter
+    try {
+      transporter = nodemailer.createTransport(smtpConfig)
+    } catch (transporterError) {
+      console.error('Failed to create transporter:', transporterError)
+      // Fall back to database-only save
+      try {
+        const { data, error } = await supabaseAdmin
+          .from('contact_messages')
+          .insert([
+            {
+              name,
+              email,
+              phone: phone || null,
+              subject: subject || 'No subject',
+              message,
+              created_at: new Date().toISOString()
+            }
+          ])
+          .select()
+
+        if (error) {
+          throw error
+        }
+        
+        return res.status(200).json({ 
+          success: true,
+          message: 'Message received! We\'ll get back to you soon.',
+          dbId: data[0]?.id,
+          note: 'Note: Email service is temporarily unavailable. Your message has been saved.'
+        })
+      } catch (dbError) {
+        return res.status(500).json({ 
+          error: 'Failed to process your message',
+          details: 'Please try again later or contact directly via email.'
+        })
+      }
+    }
 
     // Verify transporter configuration
     try {
