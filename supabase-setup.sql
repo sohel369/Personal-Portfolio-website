@@ -17,24 +17,13 @@ CREATE INDEX IF NOT EXISTS idx_contact_messages_created_at ON contact_messages(c
 -- Enable Row Level Security (RLS)
 ALTER TABLE contact_messages ENABLE ROW LEVEL SECURITY;
 
--- Policy: Allow service role to insert (for API routes)
-CREATE POLICY "Allow service role to insert contact messages"
-  ON contact_messages
+-- Policy: Allow public inserts (for the API)
+CREATE POLICY "Allow public inserts" ON contact_messages
   FOR INSERT
-  TO service_role
   WITH CHECK (true);
 
--- Policy: Allow service role to read (for admin API routes)
-CREATE POLICY "Allow service role to read contact messages"
-  ON contact_messages
-  FOR SELECT
-  TO service_role
-  USING (true);
-
--- Optional: Allow anonymous users to insert (if you want direct client-side inserts)
--- CREATE POLICY "Allow anonymous to insert contact messages"
---   ON contact_messages
---   FOR INSERT
---   TO anon
---   WITH CHECK (true);
+-- Policy: Allow service role full access (for admin access)
+CREATE POLICY "Allow service role full access" ON contact_messages
+  FOR ALL
+  USING (auth.role() = 'service_role');
 
