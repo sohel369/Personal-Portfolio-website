@@ -56,7 +56,29 @@ export default function Contact() {
         body: JSON.stringify(formDataObj),
       })
 
-      const data = await response.json()
+      // Check if response is ok and has content
+      let data
+      try {
+        const contentType = response.headers.get('content-type')
+        if (contentType && contentType.includes('application/json')) {
+          const text = await response.text()
+          if (!text || text.trim() === '') {
+            throw new Error('Empty response from server')
+          }
+          data = JSON.parse(text)
+        } else {
+          // Response is not JSON
+          const text = await response.text()
+          throw new Error(text || 'Unexpected response format from server')
+        }
+      } catch (parseError) {
+        console.error('Failed to parse response:', parseError)
+        // If it's already an Error object, rethrow it
+        if (parseError instanceof Error && parseError.message !== 'Empty response from server' && !parseError.message.includes('Unexpected response format')) {
+          throw parseError
+        }
+        throw new Error('Invalid response from server. Please try again.')
+      }
 
       if (response.ok && data.success) {
         let successMessage = data.message || "Message sent successfully! I'll get back to you soon."

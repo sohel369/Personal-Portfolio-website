@@ -2,6 +2,9 @@ import nodemailer from 'nodemailer'
 import { supabaseAdmin } from '../../lib/supabase'
 
 export default async function handler(req, res) {
+  // Set default headers to ensure JSON response
+  res.setHeader('Content-Type', 'application/json')
+  
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
@@ -50,37 +53,42 @@ export default async function handler(req, res) {
       
       // Try to save to database even if SMTP is not configured
       let dbResult = null
-      try {
-        const { data, error } = await supabaseAdmin
-          .from('contact_messages')
-          .insert([
-            {
-              name,
-              email,
-              phone: phone || null,
-              subject: subject || 'No subject',
-              message,
-              created_at: new Date().toISOString()
-            }
-          ])
-          .select()
+      if (supabaseAdmin) {
+        try {
+          const { data, error } = await supabaseAdmin
+            .from('contact_messages')
+            .insert([
+              {
+                name,
+                email,
+                phone: phone || null,
+                subject: subject || 'No subject',
+                message,
+                created_at: new Date().toISOString()
+              }
+            ])
+            .select()
 
-        if (error) {
-          console.error('Supabase error:', error)
-          return res.status(500).json({ 
-            error: 'Contact form is not fully configured',
-            details: 'Please configure SMTP_USER and SMTP_PASS in Vercel environment variables. For Gmail, you need to create an App Password (not your regular password).',
-            note: 'Your message could not be saved. Please try contacting directly via email.'
-          })
-        } else {
-          dbResult = data[0]
-          console.log('Message saved to database:', dbResult.id)
+          if (error) {
+            console.error('Supabase error:', error)
+            // Continue without database save
+          } else {
+            dbResult = data[0]
+            console.log('Message saved to database:', dbResult.id)
+          }
+        } catch (dbError) {
+          console.error('Database save error:', dbError)
+          // Continue without database save
         }
-      } catch (dbError) {
-        console.error('Database save error:', dbError)
+      } else {
+        console.warn('Supabase not configured, skipping database save')
+      }
+      
+      // If neither SMTP nor database is configured, return error
+      if (!dbResult) {
         return res.status(500).json({ 
           error: 'Contact form is not fully configured',
-          details: 'Please configure SMTP_USER and SMTP_PASS in Vercel environment variables. For Gmail, you need to create an App Password (not your regular password).',
+          details: 'Please configure SMTP_USER and SMTP_PASS in Vercel environment variables, or set up Supabase for database storage. For Gmail, you need to create an App Password (not your regular password).',
           note: 'Your message could not be saved. Please try contacting directly via email.'
         })
       }
@@ -106,35 +114,43 @@ export default async function handler(req, res) {
     } catch (transporterError) {
       console.error('Failed to create transporter:', transporterError)
       // Fall back to database-only save
-      try {
-        const { data, error } = await supabaseAdmin
-          .from('contact_messages')
-          .insert([
-            {
-              name,
-              email,
-              phone: phone || null,
-              subject: subject || 'No subject',
-              message,
-              created_at: new Date().toISOString()
-            }
-          ])
-          .select()
+      if (supabaseAdmin) {
+        try {
+          const { data, error } = await supabaseAdmin
+            .from('contact_messages')
+            .insert([
+              {
+                name,
+                email,
+                phone: phone || null,
+                subject: subject || 'No subject',
+                message,
+                created_at: new Date().toISOString()
+              }
+            ])
+            .select()
 
-        if (error) {
-          throw error
+          if (error) {
+            throw error
+          }
+          
+          return res.status(200).json({ 
+            success: true,
+            message: 'Message received! We\'ll get back to you soon.',
+            dbId: data[0]?.id,
+            note: 'Note: Email service is temporarily unavailable. Your message has been saved.'
+          })
+        } catch (dbError) {
+          console.error('Database save error:', dbError)
+          return res.status(500).json({ 
+            error: 'Failed to process your message',
+            details: 'Please try again later or contact directly via email.'
+          })
         }
-        
-        return res.status(200).json({ 
-          success: true,
-          message: 'Message received! We\'ll get back to you soon.',
-          dbId: data[0]?.id,
-          note: 'Note: Email service is temporarily unavailable. Your message has been saved.'
-        })
-      } catch (dbError) {
+      } else {
         return res.status(500).json({ 
-          error: 'Failed to process your message',
-          details: 'Please try again later or contact directly via email.'
+          error: 'Email service configuration error',
+          details: 'Failed to create email transporter and database is not configured. Please configure SMTP settings or Supabase in Vercel environment variables.'
         })
       }
     }
@@ -277,31 +293,35 @@ You can reply directly to this email to respond to ${name}.
 
     // Save to Supabase database (optional but recommended)
     let dbResult = null
-    try {
-      const { data, error } = await supabaseAdmin
-        .from('contact_messages')
-        .insert([
-          {
-            name,
-            email,
-            phone: phone || null,
-            subject: subject || 'No subject',
-            message,
-            created_at: new Date().toISOString()
-          }
-        ])
-        .select()
+    if (supabaseAdmin) {
+      try {
+        const { data, error } = await supabaseAdmin
+          .from('contact_messages')
+          .insert([
+            {
+              name,
+              email,
+              phone: phone || null,
+              subject: subject || 'No subject',
+              message,
+              created_at: new Date().toISOString()
+            }
+          ])
+          .select()
 
-      if (error) {
-        console.error('Supabase error (non-critical):', error)
-        // Don't fail the request if DB save fails, email was sent successfully
-      } else {
-        dbResult = data[0]
-        console.log('Message saved to database:', dbResult.id)
+        if (error) {
+          console.error('Supabase error (non-critical):', error)
+          // Don't fail the request if DB save fails, email was sent successfully
+        } else {
+          dbResult = data[0]
+          console.log('Message saved to database:', dbResult.id)
+        }
+      } catch (dbError) {
+        console.error('Database save error (non-critical):', dbError)
+        // Continue even if database save fails
       }
-    } catch (dbError) {
-      console.error('Database save error (non-critical):', dbError)
-      // Continue even if database save fails
+    } else {
+      console.warn('Supabase not configured, skipping database save')
     }
 
     // Return success response
@@ -314,10 +334,21 @@ You can reply directly to this email to respond to ${name}.
 
   } catch (error) {
     console.error('Contact API error:', error)
-    return res.status(500).json({ 
-      error: 'Internal server error',
-      details: error.message
-    })
+    // Ensure we always return valid JSON, even on unexpected errors
+    try {
+      return res.status(500).json({ 
+        error: 'Internal server error',
+        details: error.message || 'An unexpected error occurred',
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      })
+    } catch (jsonError) {
+      // If JSON.stringify fails, send plain text as last resort
+      console.error('Failed to send JSON error response:', jsonError)
+      res.status(500).end(JSON.stringify({ 
+        error: 'Internal server error',
+        details: 'Failed to process request'
+      }))
+    }
   }
 }
 
