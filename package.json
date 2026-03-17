@@ -2,6 +2,7 @@
   "name": "portfolio-next",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,14 +15,14 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.81.1",
-    "next": "16.0.3",
+    "next": "16.0.10",
     "nodemailer": "^6.9.8",
-    "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
   },
   "devDependencies": {
     "@types/react": "19.2.5",
     "eslint": "^9",
-    "eslint-config-next": "16.0.3"
+    "eslint-config-next": "16.0.10"
   }
 }
