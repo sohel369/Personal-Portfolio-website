@@ -9,7 +9,7 @@ const ScrollLink = ({ href, children, className }) => {
       element.scrollIntoView({ behavior: 'smooth' })
     }
   }
-  
+
   return (
     <a href={href} className={className} onClick={handleClick}>
       {children}
@@ -99,10 +99,10 @@ export default function Hero() {
           I'm a <span className="text-animation" ref={textRef}>{displayText}</span>
         </h3>
         <p className="hero-description">
-          Passionate developer crafting exceptional digital experiences. 
+          Passionate developer crafting exceptional digital experiences.
           Transforming ideas into innovative solutions with cutting-edge technology and creative design.
         </p>
-        
+
         <div className="hero-stats">
           <div className="stat-item">
             <span className="stat-number">50+</span>
@@ -119,10 +119,13 @@ export default function Hero() {
         </div>
 
         <div className="social-icons">
-          <a href="#" className="social-link" aria-label="LinkedIn">
+          <a href="https://www.facebook.com/profile.php?id=100082254065747" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook">
+            <i className='bx bxl-facebook-circle'></i>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=100082254065747" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
             <i className='bx bxl-linkedin-square'></i>
           </a>
-          <a href="#" className="social-link" aria-label="GitHub">
+          <a href="https://github.com/sohel369" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="GitHub">
             <i className='bx bxl-github'></i>
           </a>
           <a href="#" className="social-link" aria-label="Instagram">
@@ -132,7 +135,7 @@ export default function Hero() {
             <i className='bx bxl-twitter'></i>
           </a>
         </div>
-        
+
         <div className="btn_group">
           <ScrollLink href="#contact" className="btn btn-primary">
             <span style={{ color: '#000' }}>Hire Me</span>
@@ -144,13 +147,13 @@ export default function Hero() {
           </ScrollLink>
         </div>
       </div>
-      
+
       <div className="home-img">
         <div className="img-wrapper">
           <div className="img-glow"></div>
-          <img 
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn4zpMIKUbgJpiQ73yJbL48o2OsBW4DfvHD0dV1vtm31MVeyOiTjtvl-gVlbGkTuvcSy0&usqp=CAU"
-            alt="SOHEL Developer"
+          <img
+            src="/sohel-rana.jpg"
+            alt="Muhammad Sohel - Frontend Developer"
           />
           <div className="img-border"></div>
         </div>
@@ -160,13 +163,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="scroll-indicator">
-        <div className="mouse">
-          <div className="wheel"></div>
-        </div>
-        <div className="scroll-text">Scroll Down</div>
-      </div>
     </section>
   )
 }

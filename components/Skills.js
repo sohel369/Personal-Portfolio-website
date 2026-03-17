@@ -92,6 +92,84 @@ export default function Skills() {
                   <span>80%</span>
                 </div>
               </div>
+
+              <div className="skill-card">
+                <div className="skill-icon">
+                  <i className='bx bx-code-alt'></i>
+                </div>
+                <h4>Next.js</h4>
+                <div className="skill-level">
+                  <div className="skill-bar">
+                    <div className="skill-progress" style={{ width: '85%' }}></div>
+                  </div>
+                  <span>85%</span>
+                </div>
+              </div>
+
+              <div className="skill-card">
+                <div className="skill-icon">
+                  <i className='bx bxl-tailwind-css'></i>
+                </div>
+                <h4>Tailwind CSS</h4>
+                <div className="skill-level">
+                  <div className="skill-bar">
+                    <div className="skill-progress" style={{ width: '90%' }}></div>
+                  </div>
+                  <span>90%</span>
+                </div>
+              </div>
+
+              <div className="skill-card">
+                <div className="skill-icon">
+                  <i className='bx bxl-wordpress'></i>
+                </div>
+                <h4>WordPress</h4>
+                <div className="skill-level">
+                  <div className="skill-bar">
+                    <div className="skill-progress" style={{ width: '82%' }}></div>
+                  </div>
+                  <span>82%</span>
+                </div>
+              </div>
+
+              <div className="skill-card">
+                <div className="skill-icon">
+                  <i className='bx bxl-firebase'></i>
+                </div>
+                <h4>Firebase</h4>
+                <div className="skill-level">
+                  <div className="skill-bar">
+                    <div className="skill-progress" style={{ width: '85%' }}></div>
+                  </div>
+                  <span>85%</span>
+                </div>
+              </div>
+
+              <div className="skill-card">
+                <div className="skill-icon">
+                  <i className='bx bx-data'></i>
+                </div>
+                <h4>Supabase</h4>
+                <div className="skill-level">
+                  <div className="skill-bar">
+                    <div className="skill-progress" style={{ width: '80%' }}></div>
+                  </div>
+                  <span>80%</span>
+                </div>
+              </div>
+
+              <div className="skill-card">
+                <div className="skill-icon">
+                  <i className='bx bxl-flutter'></i>
+                </div>
+                <h4>Flutter</h4>
+                <div className="skill-level">
+                  <div className="skill-bar">
+                    <div className="skill-progress" style={{ width: '75%' }}></div>
+                  </div>
+                  <span>75%</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -148,6 +226,14 @@ export default function Skills() {
               <div className="tool-item">
                 <i className='bx bx-data'></i>
                 <span>PostgreSQL</span>
+              </div>
+              <div className="tool-item">
+                <i className='bx bxl-wordpress'></i>
+                <span>WordPress</span>
+              </div>
+              <div className="tool-item">
+                <i className='bx bx-data'></i>
+                <span>Supabase</span>
               </div>
             </div>
           </div>

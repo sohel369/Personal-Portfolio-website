@@ -1658,8 +1658,9 @@ span {
 
 .soft-skills {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2.5rem;
+    justify-content: center;
 }
 
 .soft-skill-item {
@@ -1675,20 +1676,29 @@ span {
 }
 
 .soft-skill-item:hover {
-    transform: translateX(10px);
+    transform: translateY(-8px);
     border-color: var(--main-color);
     box-shadow: 0 10px 30px rgba(0, 238, 238, 0.3);
     background: rgba(255, 255, 255, 0.05);
 }
 
 .soft-skill-item i {
-    font-size: 2.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 238, 238, 0.1);
+    border-radius: 50%;
+    font-size: 2rem;
     color: var(--main-color);
     transition: all 0.4s ease;
 }
 
 .soft-skill-item:hover i {
-    transform: scale(1.2) rotate(5deg);
+    background: var(--main-color);
+    color: #000;
+    transform: scale(1.1) rotate(5deg);
 }
 
 .soft-skill-item span {
@@ -4846,20 +4856,18 @@ span {
     .service_container{
         width: 100%;
         padding: 0;
-        margin-left: 0;
-        background: white;
+        margin: 0;
         text-align: center;
     }
     .service h2{
         font-size: 40px;
     }
     .service_box{
-        width: 90%;
-        margin: 0 auto;
-        padding: 0;
-        height: 350px;
-        margin-top: 20px;
-        margin-left: 20px;
+        width: 100%;
+        margin: 0;
+        padding: 3rem 2rem;
+        height: auto;
+        min-height: 350px;
     }
     .testimonials_container {
         grid-template-columns: repeat(1, 1fr);
@@ -5441,7 +5449,7 @@ span {
     }
 
     .home {
-        flex-direction: column-reverse;
+        flex-direction: column;
         margin: 5rem 4rem;
     }
 

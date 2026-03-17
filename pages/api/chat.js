@@ -13,9 +13,9 @@ export default async function handler(req, res) {
 
     const apiKey = process.env.OPENAI_API_KEY
 
-    // If API key is missing, automatically use fallback chatbot
-    if (!apiKey) {
-      console.log('OPENAI_API_KEY is missing, using fallback chatbot')
+    // If API key is missing or is the placeholder value, automatically use fallback chatbot
+    if (!apiKey || apiKey === 'your-openai-api-key-here') {
+      console.log('OPENAI_API_KEY is missing or placeholder, using fallback chatbot')
       try {
         const { getResponse } = await import('../../lib/chatbot-fallback.js')
         const fallbackResponse = getResponse(message)
@@ -80,23 +80,30 @@ Keep every response brief and easy to understand.`
         error: errorData
       })
       
-      // Check for quota/billing errors
+      // Check for quota/billing errors or invalid keys
       const errorMessage = errorData.error?.message || ''
       const errorCode = errorData.error?.code || ''
+      const errorType = errorData.error?.type || ''
+      
       const isQuotaError = errorMessage.includes('quota') || 
                           errorMessage.includes('billing') || 
                           errorCode === 'insufficient_quota' ||
                           response.status === 429
       
-      // If quota exceeded, use fallback chatbot
-      if (isQuotaError) {
-        console.log('OpenAI quota exceeded, using fallback chatbot')
+      const isInvalidKeyError = errorMessage.includes('API key') || 
+                               errorCode === 'invalid_api_key' ||
+                               response.status === 401
+      
+      // If quota exceeded or invalid key, use fallback chatbot
+      if (isQuotaError || isInvalidKeyError) {
+        console.log(`OpenAI ${isInvalidKeyError ? 'API key invalid' : 'quota exceeded'}, using fallback chatbot`)
         try {
           const { getResponse } = await import('../../lib/chatbot-fallback.js')
           const fallbackResponse = getResponse(message)
           return res.status(200).json({ 
             message: fallbackResponse,
-            source: 'fallback'
+            source: 'fallback',
+            note: isInvalidKeyError ? 'OpenAI key is invalid. Using local fallback.' : 'OpenAI quota exceeded. Using local fallback.'
           })
         } catch (fallbackError) {
           console.error('Fallback chatbot error:', fallbackError)

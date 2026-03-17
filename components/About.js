@@ -65,7 +65,7 @@ export default function About() {
               <div className="about-img-wrapper">
                 <div className="about-img-glow"></div>
                 <img 
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn4zpMIKUbgJpiQ73yJbL48o2OsBW4DfvHD0dV1vtm31MVeyOiTjtvl-gVlbGkTuvcSy0&usqp=CAU"
+                  src="https://bernardmarr.com/wp-content/uploads/2022/04/The-10-Biggest-Technology-Trends-That-Will-Transform-The-Next-Decade.jpg"
                   alt="SOHEL Developer"
                 />
                 <div className="about-img-border"></div>

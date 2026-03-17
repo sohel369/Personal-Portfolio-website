@@ -144,34 +144,34 @@ export default function Contact() {
         </div>
 
         <div className="contact-content">
-          {/* Contact Info Section */}
           <div className="contact-info">
+
             <div className="contact-info-card">
               <div className="info-icon">
-                <i className='bx bx-envelope'></i>
+                <i className='bx bxl-whatsapp'></i>
               </div>
-              <h3>Email Me</h3>
-              <p>sohel@example.com</p>
-              <a href="mailto:sohel@example.com">Send Email</a>
+              <h3>WhatsApp</h3>
+              <p>Instant Messaging</p>
+              <a href="https://wa.me/8801700000000" target="_blank" rel="noopener noreferrer">Chat Now</a>
             </div>
 
             <div className="contact-info-card">
               <div className="info-icon">
-                <i className='bx bx-phone'></i>
+                <i className='bx bxl-linkedin'></i>
               </div>
-              <h3>Call Me</h3>
-              <p>+1 234 567 8900</p>
-              <a href="tel:+12345678900">Call Now</a>
+              <h3>LinkedIn</h3>
+              <p>Professional Profile</p>
+              <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">Connect</a>
             </div>
 
             <div className="contact-social">
               <h3>Follow Me</h3>
               <div className="social-icons-grid">
-                <a href="#" className="social-icon-link" aria-label="LinkedIn">
+                <a href="https://www.facebook.com/profile.php?id=100082254065747" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="LinkedIn">
                   <i className='bx bxl-linkedin-square'></i>
                   <span>LinkedIn</span>
                 </a>
-                <a href="#" className="social-icon-link" aria-label="GitHub">
+                <a href="https://github.com/sohel369" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="GitHub">
                   <i className='bx bxl-github'></i>
                   <span>GitHub</span>
                 </a>
@@ -183,7 +183,7 @@ export default function Contact() {
                   <i className='bx bxl-instagram-alt'></i>
                   <span>Instagram</span>
                 </a>
-                <a href="#" className="social-icon-link" aria-label="Facebook">
+                <a href="https://www.facebook.com/profile.php?id=100082254065747" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="Facebook">
                   <i className='bx bxl-facebook'></i>
                   <span>Facebook</span>
                 </a>
