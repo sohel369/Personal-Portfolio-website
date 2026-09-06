@@ -11,7 +11,7 @@ import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import ChatWidget from '../components/ChatWidget'
 import DynamicTitle from '../components/DynamicTitle'
-import ScrollToTop from '../components/ScrollToTop'
+import SunScrollbar from '../components/SunScrollbar'
 
 export default function Home() {
   return (
@@ -40,6 +40,7 @@ export default function Home() {
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />
       </Head>
       <DynamicTitle defaultTitle="Muhammad Sohel - Portfolio" />
+      <SunScrollbar />
       <Header />
       <main>
         <Hero />
@@ -53,7 +54,6 @@ export default function Home() {
       </main>
       <Footer />
       <ChatWidget />
-      <ScrollToTop />
     </>
   )
 }

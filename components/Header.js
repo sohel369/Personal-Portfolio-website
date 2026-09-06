@@ -24,21 +24,41 @@ export default function Header() {
   const headerRef = useRef(null)
   const menuIconRef = useRef(null)
   const navbarRef = useRef(null)
+  const lastScrollY = useRef(0)
+  const isMenuOpenRef = useRef(false)
+
+  useEffect(() => {
+    isMenuOpenRef.current = isMenuOpen
+  }, [isMenuOpen])
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScroll = window.pageYOffset
+      const currentScroll = window.pageYOffset || window.scrollY
       const header = headerRef.current
+      const prevScroll = lastScrollY.current
 
       if (header) {
-        if (currentScroll > 100) {
-          header.style.background = 'rgba(8, 8, 8, 0.95)'
-          header.style.boxShadow = '0 4px 30px rgba(0, 238, 238, 0.2)'
+        if (currentScroll > 30) {
+          header.classList.add('sticky')
         } else {
-          header.style.background = 'rgba(8, 8, 8, 0.85)'
-          header.style.boxShadow = '0 4px 30px rgba(0, 238, 238, 0.1)'
+          header.classList.remove('sticky')
+        }
+
+        // Hide on scroll down, show on scroll up (both desktop and mobile)
+        if (!isMenuOpenRef.current) {
+          if (currentScroll > prevScroll && currentScroll > 80) {
+            // User is scrolling DOWN -> Hide header
+            header.classList.add('header-hidden')
+          } else if (currentScroll < prevScroll) {
+            // User is scrolling UP -> Show header
+            header.classList.remove('header-hidden')
+          }
+        } else {
+          header.classList.remove('header-hidden')
         }
       }
+
+      lastScrollY.current = currentScroll <= 0 ? 0 : currentScroll
 
       // Active section highlighting
       const sections = document.querySelectorAll('section')
@@ -53,7 +73,7 @@ export default function Header() {
       })
     }
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 

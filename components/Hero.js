@@ -22,9 +22,69 @@ export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [showCvModal, setShowCvModal] = useState(false)
+  const [passwordInput, setPasswordInput] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+  const [isSuccess, setIsSuccess] = useState(false)
   const textRef = useRef(null)
+  const passwordInputRef = useRef(null)
 
   const words = ["Web Designer", "Frontend Designer", "Web Developer", "Frontend Developer", "Software Designer"]
+
+  useEffect(() => {
+    if (showCvModal && passwordInputRef.current) {
+      setTimeout(() => {
+        passwordInputRef.current?.focus()
+      }, 100)
+    }
+  }, [showCvModal])
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && showCvModal) {
+        setShowCvModal(false)
+        setErrorMsg('')
+        setPasswordInput('')
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [showCvModal])
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    const cleaned = passwordInput.trim().toLowerCase()
+    
+    if (!cleaned) {
+      setErrorMsg('Please enter the password.')
+      return
+    }
+
+    if (cleaned === 'sohel') {
+      setIsSuccess(true)
+      setErrorMsg('')
+
+      // Trigger CV download
+      setTimeout(() => {
+        const link = document.createElement('a')
+        link.href = '/MUHAMMAD SOHEL RANA-details_cv.pdf'
+        link.download = 'MUHAMMAD SOHEL RANA-details_cv.pdf'
+        link.target = '_blank'
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+      }, 500)
+
+      setTimeout(() => {
+        setShowCvModal(false)
+        setIsSuccess(false)
+        setPasswordInput('')
+      }, 2200)
+    } else {
+      setErrorMsg('Incorrect password! Please try again.')
+    }
+  }
 
   useEffect(() => {
     let typingInterval
@@ -78,6 +138,19 @@ export default function Hero() {
 
   return (
     <section className="home" id="home" data-title="Home - Muhammad Sohel">
+      {/* Background YouTube Video Layer */}
+      <div className="hero-video-bg">
+        <iframe
+          src="https://www.youtube.com/embed/QiPce31_FKg?autoplay=1&mute=1&loop=1&playlist=QiPce31_FKg&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1&playsinline=1&enablejsapi=1"
+          title="Hero Background Video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          tabIndex="-1"
+          aria-hidden="true"
+        />
+        <div className="hero-video-overlay"></div>
+      </div>
+
       {/* Animated Background Elements */}
       <div className="bg-animation">
         <div className="floating-shapes">
@@ -131,14 +204,34 @@ export default function Hero() {
           <a href="https://www.facebook.com/profile.php?id=100082254065747" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook">
             <i className='bx bxl-facebook-circle'></i>
           </a>
+          <button 
+            type="button" 
+            onClick={() => setShowCvModal(true)} 
+            className="social-link cv-social-btn" 
+            title="Download CV (Password Protected)"
+            aria-label="Download CV"
+          >
+            <i className='bx bxs-file-pdf'></i>
+            <span className="cv-social-label">CV</span>
+          </button>
         </div>
 
         <div className="btn_group">
-          <ScrollLink href="#contact" className="btn btn-primary">
-            <span style={{ color: '#000' }}>Hire Me</span>
-            <i className='bx bx-right-arrow-alt'></i>
-          </ScrollLink>
-          <ScrollLink href="#portfolio" className="btn btn-secondary">
+          <div className="btn_row_top">
+            <ScrollLink href="#contact" className="btn btn-primary">
+              <span style={{ color: '#000' }}>Hire Me</span>
+              <i className='bx bx-right-arrow-alt'></i>
+            </ScrollLink>
+            <button 
+              type="button" 
+              onClick={() => setShowCvModal(true)} 
+              className="btn btn-cv-cta"
+            >
+              <i className='bx bx-lock-alt'></i>
+              <span>Get CV</span>
+            </button>
+          </div>
+          <ScrollLink href="#portfolio" className="btn btn-secondary btn-portfolio-full">
             <span>View Portfolio</span>
             <i className='bx bx-down-arrow-alt'></i>
           </ScrollLink>
@@ -160,6 +253,93 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Password Protected CV Modal */}
+      {showCvModal && (
+        <div className="cv-modal-overlay" onClick={() => !isSuccess && setShowCvModal(false)}>
+          <div className="cv-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button 
+              type="button"
+              className="cv-modal-close" 
+              onClick={() => {
+                setShowCvModal(false)
+                setErrorMsg('')
+                setPasswordInput('')
+              }}
+              aria-label="Close modal"
+            >
+              <i className='bx bx-x'></i>
+            </button>
+
+            <div className={`cv-modal-icon-wrap ${isSuccess ? 'success' : ''}`}>
+              <i className={isSuccess ? 'bx bxs-check-shield' : 'bx bxs-lock-alt'}></i>
+            </div>
+
+            <h3 className="cv-modal-title">Protected CV Access</h3>
+            <p className="cv-modal-desc">
+              Please enter the access password to view & download <strong>Muhammad Sohel's</strong> CV.
+            </p>
+
+            <form onSubmit={handlePasswordSubmit} className="cv-modal-form">
+              <div className={`cv-input-box ${errorMsg ? 'error-border' : ''}`}>
+                <i className='bx bx-key input-icon'></i>
+                <input
+                  ref={passwordInputRef}
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter password (e.g. sohel)"
+                  value={passwordInput}
+                  onChange={(e) => {
+                    setPasswordInput(e.target.value)
+                    if (errorMsg) setErrorMsg('')
+                  }}
+                  className="cv-input-element"
+                  disabled={isSuccess}
+                />
+                <button
+                  type="button"
+                  className="cv-eye-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                  aria-label="Toggle password visibility"
+                >
+                  <i className={showPassword ? 'bx bx-hide' : 'bx bx-show'}></i>
+                </button>
+              </div>
+
+              {errorMsg && (
+                <div className="cv-error-alert">
+                  <i className='bx bx-error-circle'></i>
+                  <span>{errorMsg}</span>
+                </div>
+              )}
+
+              {isSuccess && (
+                <div className="cv-success-alert">
+                  <i className='bx bx-check-circle'></i>
+                  <span>Password verified! Downloading CV...</span>
+                </div>
+              )}
+
+              <button 
+                type="submit" 
+                className={`cv-submit-btn ${isSuccess ? 'success-btn' : ''}`}
+                disabled={isSuccess}
+              >
+                {isSuccess ? (
+                  <>
+                    <i className='bx bx-check'></i>
+                    <span>Access Granted!</span>
+                  </>
+                ) : (
+                  <>
+                    <i className='bx bx-lock-open-alt'></i>
+                    <span>Unlock & Download CV</span>
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
