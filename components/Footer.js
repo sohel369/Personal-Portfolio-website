@@ -47,20 +47,17 @@ export default function Footer() {
             </div>
             <p className="footer-description">Passionate developer crafting exceptional digital experiences. Transforming ideas into innovative solutions with cutting-edge technology.</p>
             <div className="footer-social">
-              <a href="https://www.facebook.com/profile.php?id=100082254065747" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook">
-                <i className='bx bxl-facebook-circle'></i>
-              </a>
-              <a href="https://www.facebook.com/profile.php?id=100082254065747" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/in/muhammad-sohel-a543b83b9/" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
                 <i className='bx bxl-linkedin-square'></i>
               </a>
               <a href="https://github.com/sohel369" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="GitHub">
                 <i className='bx bxl-github'></i>
               </a>
-              <a href="#" className="social-link" aria-label="Instagram">
-                <i className='bx bxl-instagram-alt'></i>
+              <a href="https://wa.me/8801308446369" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="WhatsApp">
+                <i className='bx bxl-whatsapp'></i>
               </a>
-              <a href="#" className="social-link" aria-label="Twitter">
-                <i className='bx bxl-twitter'></i>
+              <a href="https://www.facebook.com/profile.php?id=100082254065747" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook">
+                <i className='bx bxl-facebook-circle'></i>
               </a>
             </div>
           </div>

@@ -151,8 +151,8 @@ export default function Contact() {
                 <i className='bx bxl-whatsapp'></i>
               </div>
               <h3>WhatsApp</h3>
-              <p>Instant Messaging</p>
-              <a href="https://wa.me/8801700000000" target="_blank" rel="noopener noreferrer">Chat Now</a>
+              <p>+880 1308-446369</p>
+              <a href="https://wa.me/8801308446369" target="_blank" rel="noopener noreferrer">Chat Now</a>
             </div>
 
             <div className="contact-info-card">
@@ -160,14 +160,14 @@ export default function Contact() {
                 <i className='bx bxl-linkedin'></i>
               </div>
               <h3>LinkedIn</h3>
-              <p>Professional Profile</p>
-              <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">Connect</a>
+              <p>Muhammad Sohel</p>
+              <a href="https://www.linkedin.com/in/muhammad-sohel-a543b83b9/" target="_blank" rel="noopener noreferrer">Connect</a>
             </div>
 
             <div className="contact-social">
               <h3>Follow Me</h3>
               <div className="social-icons-grid">
-                <a href="https://www.facebook.com/profile.php?id=100082254065747" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/muhammad-sohel-a543b83b9/" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="LinkedIn">
                   <i className='bx bxl-linkedin-square'></i>
                   <span>LinkedIn</span>
                 </a>
@@ -175,21 +175,13 @@ export default function Contact() {
                   <i className='bx bxl-github'></i>
                   <span>GitHub</span>
                 </a>
-                <a href="#" className="social-icon-link" aria-label="Twitter">
-                  <i className='bx bxl-twitter'></i>
-                  <span>Twitter</span>
-                </a>
-                <a href="#" className="social-icon-link" aria-label="Instagram">
-                  <i className='bx bxl-instagram-alt'></i>
-                  <span>Instagram</span>
+                <a href="https://wa.me/8801308446369" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="WhatsApp">
+                  <i className='bx bxl-whatsapp'></i>
+                  <span>WhatsApp</span>
                 </a>
                 <a href="https://www.facebook.com/profile.php?id=100082254065747" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="Facebook">
                   <i className='bx bxl-facebook'></i>
                   <span>Facebook</span>
-                </a>
-                <a href="#" className="social-icon-link" aria-label="Dribbble">
-                  <i className='bx bxl-dribbble'></i>
-                  <span>Dribbble</span>
                 </a>
               </div>
             </div>
